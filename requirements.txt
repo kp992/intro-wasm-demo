@@ -8,3 +8,7 @@ quantecon_book_theme
 # now list the packages (and the respective url) you wish to download from the GitLab package registry
 --extra-index-url https://gitlab.tudelft.nl/api/v4/projects/11239/packages/pypi/simple
 sphinx-thebe ~= 0.9.9
+sphinx-tojupyter==0.3.0
+sphinx-exercise==1.0.1
+sphinx-proof==0.2.0
+sphinx-reredirects

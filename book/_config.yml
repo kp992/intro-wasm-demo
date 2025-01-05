@@ -74,6 +74,10 @@ sphinx:
     - download_link_replacer
     - sphinx.ext.extlinks
     - sphinx_image_inverter
+    - sphinx_exercise
+    - sphinx_proof
+    - sphinx_tojupyter
+    - sphinx_reredirects
 
 bibtex_bibfiles: 
   - references.bib
