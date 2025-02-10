@@ -10,6 +10,9 @@ except ImportError:
         "The gdown package is required. Use `pip install gdown` to install it."
     )
 
+# This will fetch the lectures from latest main branch
+LECTURE_INTRO_URL = "https://github.com/QuantEcon/lecture-python-intro/archive/refs/heads/main.zip"
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def download_lectures(
     url=None,
@@ -58,48 +61,51 @@ def download_lectures(
     return os.path.abspath(output)
 
 
-# This will fetch the lectures from latest main branch
-LECTURE_INTRO_URL = "https://github.com/QuantEcon/lecture-python-intro/archive/refs/heads/main.zip"
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-
-out_zip = 'qe-lecture-intro-main.zip'
-out_zip = download_lectures(LECTURE_INTRO_URL, out_zip)
-
-in_dir_1 = os.path.abspath(os.path.join(ROOT_DIR, 'lecture-python-intro-main'))
-in_dir_2 = os.path.abspath(os.path.join(in_dir_1, 'lectures'))
-out_dir = os.path.abspath(os.path.join(ROOT_DIR, 'book'))
-# notebook_dir = os.path.abspath(os.path.join(out_dir, 'lectures'))
-
-shutil.copytree(in_dir_2, out_dir, dirs_exist_ok=True)
-cwd = os.getcwd()
-os.chdir(cwd)
+def update_pip_line(line):
+    line_ = line
+    if "!pip" in line_:
+        line_ = line_.replace("!", "").replace("pip", "%pip")
+        line_ = line_.replace("--upgrade", "")
+    return line_
 
 
-lectures = glob.glob(os.path.abspath(os.path.join(out_dir, '*.md')))
+def update_lectures():
+    out_zip = 'qe-lecture-intro-main.zip'
+    out_zip = download_lectures(LECTURE_INTRO_URL, out_zip)
 
-# Replace `!pip` with `%pip`
-for file in lectures:
-    base_name = os.path.basename(file)
-    with open(file, 'r') as f:
-        lines = f.readlines()
+    in_dir_1 = os.path.abspath(os.path.join(ROOT_DIR, 'lecture-python-intro-main'))
+    in_dir_2 = os.path.abspath(os.path.join(in_dir_1, 'lectures'))
+    out_dir = os.path.abspath(os.path.join(ROOT_DIR, 'book'))
 
-    out_lines = []
-    for index, line in enumerate(lines):
-        if "!pip" in line:
-            line_ = line.replace("!pip", "%pip")
+    shutil.copytree(in_dir_2, out_dir, dirs_exist_ok=True)
+    cwd = os.getcwd()
+    os.chdir(cwd)
+
+
+    lectures = glob.glob(os.path.abspath(os.path.join(out_dir, '*.md')))
+
+    # Update file lines
+    for file in lectures:
+        base_name = os.path.basename(file)
+        with open(file, 'r') as f:
+            lines = f.readlines()
+
+        out_lines = []
+        for index, line in enumerate(lines):
+            line_ = update_pip_line(line)
             out_lines.append(line_)
-        elif "! pip" in line:
-            line_ = line.replace("! pip", "%pip")
-            out_lines.append(line_)
-        elif "pip" in line:
-            line_ = line.replace("pip", "%pip")
-            out_lines.append(line_)
-        else:
-            out_lines.append(line)
 
-    with open(file, 'w') as f:
-        f.writelines(out_lines)
-    
+        with open(file, 'w') as f:
+            f.writelines(out_lines)
 
-shutil.rmtree('lecture-python-intro-main')
-os.remove(out_zip)
+    # Update _config.yml file
+    source_config = os.path.abspath(os.path.join(ROOT_DIR, '_config_copy.yml'))
+    destination_config = os.path.abspath(os.path.join(out_dir, '_config.yml'))
+    shutil.copyfile(source_config, destination_config)
+
+    # Remove downloaded folder
+    shutil.rmtree('lecture-python-intro-main')
+    os.remove(out_zip)
+
+if __name__ == '__main__':
+    update_lectures()

@@ -76,7 +76,7 @@ $t$ gives
 
 $$
 \pi_t = \mu_t + \alpha \pi_{t+1}^* - \alpha \pi_t^*
-$$ (eq:eq%pipi)
+$$ (eq:eqpipi)
 
 We assume that the expected rate of inflation $\pi_t^*$ is governed
 by the following adaptive expectations scheme proposed by {cite}`Friedman1956` and {cite}`Cagan`, where $\lambda\in [0,1]$ denotes the weight on expected inflation.
@@ -130,7 +130,7 @@ $$ (eq:eq1)
 where the $(T+2) \times (T+2) $matrix $A$, the $(T+2)\times (T+1)$ matrix $B$, and the vectors $\pi^* , \pi_0, \pi_0^*$
 are defined implicitly by aligning these two equations.
 
-Next we write the key equation {eq}`eq:eq%pipi` in matrix notation as
+Next we write the key equation {eq}`eq:eqpipi` in matrix notation as
 
 $$ 
 \begin{bmatrix}

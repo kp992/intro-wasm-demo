@@ -19,7 +19,7 @@ In addition to what's in Anaconda, this lecture will need the following librarie
 ```{code-cell} ipython3
 :tags: [hide-output]
 
-%pip install --upgrade yfinance pandas_datareader
+%pip install  yfinance pandas_datareader
 ```
 
 We use the following imports.
@@ -361,7 +361,7 @@ for ax, s in zip(axes[:2], s_vals):
     data = np.random.randn(n) * s
     ax.plot(list(range(n)), data, linestyle='', marker='o', alpha=0.5, ms=4)
     ax.vlines(list(range(n)), 0, data, lw=0.2)
-    ax.set_title(f"draws from $N(0, \sigma^2)$ with $\sigma = {s}$", fontsize=11)
+    ax.set_title(fr"draws from $N(0, \sigma^2)$ with $\sigma = {s}$", fontsize=11)
 
 ax = axes[2]
 distribution = cauchy()

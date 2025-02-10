@@ -12,7 +12,7 @@ kernelspec:
 (lp_intro)=
 # Linear Programming
 
-In this lecture, we will need the following library. Install [ortools](https://developers.google.com/optimization) using `%pip`.
+In this lecture, we will need the following library. Install [ortools](https://developers.google.com/optimization) using `pip`.
 
 ```{code-cell} ipython3
 ---

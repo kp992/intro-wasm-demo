@@ -23,7 +23,7 @@ In this lecture we give a quick introduction to data and probability distributio
 ```{code-cell} ipython3
 :tags: [hide-output]
 
-%pip install --upgrade yfinance  
+%pip install  yfinance  
 ```
 
 ```{code-cell} ipython3
@@ -496,7 +496,7 @@ for μ, σ in zip(μ_vals, σ_vals):
     u = scipy.stats.lognorm(σ, scale=np.exp(μ))
     ax.plot(x_grid, u.pdf(x_grid),
     alpha=0.5, lw=2,
-    label=f'$\mu={μ}, \sigma={σ}$')
+    label=fr'$\mu={μ}, \sigma={σ}$')
 ax.set_xlabel('x')
 ax.set_ylabel('PDF')
 plt.legend()

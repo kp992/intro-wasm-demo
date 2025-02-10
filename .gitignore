@@ -135,3 +135,6 @@ _build/
 
 # poetry files
 pyproject.toml
+
+# QE-intermediate file
+qe-lecture-intro-main.zip
