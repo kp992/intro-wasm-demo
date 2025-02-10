@@ -63,7 +63,7 @@ def download_lectures(
 
 def update_pip_line(line):
     line_ = line
-    if "!pip" in line_:
+    if ("!pip" in line_) and ("install" in line_):
         line_ = line_.replace("!", "").replace("pip", "%pip")
         line_ = line_.replace("--upgrade", "")
     return line_
