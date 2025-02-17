@@ -138,3 +138,5 @@ pyproject.toml
 
 # QE-intermediate file
 qe-lecture-intro-main.zip
+
+.pyodide-xbuildenv/*
