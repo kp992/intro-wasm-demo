@@ -23,13 +23,14 @@ jobs:
           python -m pip install pyodide-build
           pyodide xbuildenv install
           pyodide venv .venv-pyodide
-          source .venv-pyodide/bin/activate
 
       - name: Debug
         run: |
+          source .venv-pyodide/bin/activate
           which pip
           which python
   
       - name: Try numba install
         run: |
+          source .venv-pyodide/bin/activate
           pip install numba
