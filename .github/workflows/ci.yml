@@ -1,0 +1,35 @@
+name: test-wasm
+
+on:
+  push:
+    branches:
+    - '**'
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies (pyodide)
+        run: |
+          python -m pip install pyodide-build
+          pyodide xbuildenv install
+          pyodide venv .venv-pyodide
+          source .venv-pyodide/bin/activate
+
+      - name: Debug
+        run: |
+          which pip
+          which python
+  
+      - name: Try numba install
+        run: |
+          pip install numba
