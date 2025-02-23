@@ -10,8 +10,8 @@ except ImportError:
         "The gdown package is required. Use `pip install gdown` to install it."
     )
 
-# This will fetch the lectures from latest main branch
-LECTURE_INTRO_URL = "https://github.com/QuantEcon/lecture-python-intro/archive/refs/heads/main.zip"
+# This will fetch the lectures from latest wasm branch
+LECTURE_INTRO_URL = "https://github.com/QuantEcon/lecture-python-intro/archive/refs/heads/wasm.zip"
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def download_lectures(
@@ -70,10 +70,10 @@ def update_pip_line(line):
 
 
 def update_lectures():
-    out_zip = 'qe-lecture-intro-main.zip'
+    out_zip = 'qe-lecture-intro-wasm.zip'
     out_zip = download_lectures(LECTURE_INTRO_URL, out_zip)
 
-    in_dir_1 = os.path.abspath(os.path.join(ROOT_DIR, 'lecture-python-intro-main'))
+    in_dir_1 = os.path.abspath(os.path.join(ROOT_DIR, 'lecture-python-intro-wasm'))
     in_dir_2 = os.path.abspath(os.path.join(in_dir_1, 'lectures'))
     out_dir = os.path.abspath(os.path.join(ROOT_DIR, 'book'))
 
@@ -104,7 +104,7 @@ def update_lectures():
     shutil.copyfile(source_config, destination_config)
 
     # Remove downloaded folder
-    shutil.rmtree('lecture-python-intro-main')
+    shutil.rmtree('lecture-python-intro-wasm')
     os.remove(out_zip)
 
 if __name__ == '__main__':
