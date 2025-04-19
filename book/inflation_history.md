@@ -4,7 +4,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.16.1
+    jupytext_version: 1.16.7
 kernelspec:
   display_name: Python 3 (ipykernel)
   language: python
@@ -22,7 +22,7 @@ The `xlrd` package is used by `pandas` to perform operations on Excel files.
 ```{code-cell} ipython3
 :tags: [hide-output]
 
-%pip install xlrd
+%pip install xlrd openpyxl
 ```
 
 <!-- Check for pandas>=2.1.4 for Google Collab Compat -->
@@ -35,6 +35,7 @@ from packaging.version import Version
 
 if Version(version("pandas")) < Version('2.1.4'):
     %pip install "pandas>=2.1.4"
+    pass
 ```
 
 We can then import the Python modules we will use.
@@ -44,6 +45,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
+import pyodide_http
 ```
 
 The rate of growth of the price level is called **inflation** in the popular press and in discussions among central bankers and treasury officials.
@@ -83,7 +85,8 @@ Let us bring the data into pandas from a spreadsheet that is [hosted on github](
 
 ```{code-cell} ipython3
 # Import data and clean up the index
-data_url = "https://github.com/QuantEcon/lecture-python-intro/raw/main/lectures/datasets/longprices.xls"
+pyodide_http.patch_all()
+data_url = "https://raw.githubusercontent.com/QuantEcon/lecture-python-intro/main/lectures/datasets/longprices.xls"
 df_fig5 = pd.read_excel(data_url, 
                         sheet_name='all', 
                         header=2, 
@@ -355,7 +358,7 @@ We prepare the data for each country
 
 ```{code-cell} ipython3
 # Import data
-data_url = "https://github.com/QuantEcon/lecture-python-intro/raw/main/lectures/datasets/chapter_3.xlsx"
+data_url = "https://raw.githubusercontent.com/QuantEcon/lecture-python-intro/main/lectures/datasets/chapter_3.xlsx"
 xls = pd.ExcelFile(data_url)
 
 # Select relevant sheets
